@@ -1,15 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ensureUnlocked } from "@/lib/gate.functions";
 import { AppHeader, AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/arena")({
+  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
-      { title: "Arena Leaderboards — Kaspanov Chess" },
+      { title: "Arena Leaderboards — CHESSBAR Chess" },
       {
         name: "description",
         content: "Weekly blitz and bullet ladders, live arena standings and season crowns.",
       },
-      { property: "og:title", content: "Arena Leaderboards — Kaspanov Chess" },
+      { property: "og:title", content: "Arena Leaderboards — CHESSBAR Chess" },
       {
         property: "og:description",
         content: "Weekly blitz and bullet ladders with live arena standings.",

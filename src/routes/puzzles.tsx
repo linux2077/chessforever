@@ -1,18 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ensureUnlocked } from "@/lib/gate.functions";
 import { useMemo, useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
 import { Chess, type Move, type Square } from "@/lib/chess-engine";
 
 export const Route = createFileRoute("/puzzles")({
+  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
-      { title: "Daily Chess Puzzles — Kaspanov" },
+      { title: "Daily Chess Puzzles — CHESSBAR" },
       {
         name: "description",
         content: "Solve mate-in-one and tactics puzzles to sharpen your pattern recognition.",
       },
-      { property: "og:title", content: "Daily Chess Puzzles — Kaspanov" },
+      { property: "og:title", content: "Daily Chess Puzzles — CHESSBAR" },
       {
         property: "og:description",
         content: "Mate-in-one tactics puzzles with instant feedback and a solving streak.",

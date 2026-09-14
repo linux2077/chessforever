@@ -40,10 +40,12 @@ export function PlayerCard({
         <div>
           <p className="font-display text-[15px] leading-none font-semibold">
             {name}{" "}
-            {self && <span className="font-mono text-[11px] text-cream/60">· {rating}</span>}
+            {self && rating > 0 && (
+              <span className="font-mono text-[11px] text-cream/60">· {rating}</span>
+            )}
           </p>
           <p className={`mt-1 font-mono text-[11px] ${self ? "text-cream/50" : "text-bark/70"}`}>
-            {self ? `${side}${active ? " · your turn" : ""}` : `${rating} · ${side}`}
+            {self ? `${side}${active ? " · your turn" : ""}` : rating > 0 ? `${rating} · ${side}` : side}
           </p>
         </div>
       </div>
