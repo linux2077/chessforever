@@ -79,6 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "CHESSBAR — Mobile Chess" },
       { name: "description", content: "Play chess, solve puzzles and climb the ladder." },
+      { name: "robots", content: "noindex" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
