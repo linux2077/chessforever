@@ -49,12 +49,12 @@ export function ChessBoard({
               {isLast && !isTarget && <span className="absolute inset-0 bg-tea/25" />}
               {isTarget && !piece && <span className="absolute size-[26%] rounded-full bg-brick/60" />}
               {isTarget && piece && (
-                <span className="absolute inset-0 ring-[3px] -ring-offset-2 ring-inset ring-brick/70" />
+                <span className="absolute inset-0 ring-[3px] ring-inset ring-brick/70" />
               )}
               {piece && (
                 <span
                   className={`piece-drop relative font-display text-[clamp(20px,7vw,30px)] leading-none font-extrabold ${
-                    piece.color === "w" ? "text-cream drop-shadow-sm" : "text-ink"
+                    piece.color === "w" ? "text-pine drop-shadow-sm" : "text-ink"
                   }`}
                 >
                   {PIECE_GLYPHS[`${piece.color}${piece.type}`]}
