@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
   component: PlayPage,
 });
 
-const TIME_CONTROLS = [
+const TIME_CONTROLS: { label: string; detail: string; seconds: number }[] = [
   { label: "Quick", detail: "Match", seconds: 600 },
   { label: "Bot", detail: "CPU 1500", seconds: 300 },
   { label: "Bullet", detail: "1+0", seconds: 60 },
@@ -34,11 +34,11 @@ const TIME_CONTROLS = [
 
 function PlayPage() {
   const [control, setControl] = useState(0);
-  const game = useChessGame(TIME_CONTROLS[0].seconds);
+  const game = useChessGame(600);
 
   return (
     <AppShell>
-      <AppHeader title="Kaspanov" subtitle={`Ranked · ${TIME_CONTROLS[control].label}`} />
+      <AppHeader title="Kaspanov" subtitle={`Ranked · ${TIME_CONTROLS[control]?.label ?? "Quick"}`} />
 
       <div className="px-4">
         <PlayerCard
@@ -114,7 +114,7 @@ function PlayPage() {
         <div className="mt-3 px-4">
           <button
             type="button"
-            onClick={() => game.reset(TIME_CONTROLS[control].seconds)}
+            onClick={() => game.reset(TIME_CONTROLS[control]?.seconds ?? 600)}
             className="w-full rounded-2xl bg-brick px-3 py-3 font-display text-[15px] font-bold text-paper"
           >
             {game.status} — play again

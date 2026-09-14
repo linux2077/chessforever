@@ -30,7 +30,7 @@ export function ChessBoard({
       {ranks.map((rank) =>
         files.map((file) => {
           const square = `${file}${rank}` as Square;
-          const piece = board[8 - rank][FILES.indexOf(file)];
+          const piece = board[8 - rank]?.[FILES.indexOf(file)];
           const dark = (FILES.indexOf(file) + rank) % 2 === 0;
           const isTarget = legalTargets.includes(square);
           const isLast = lastMove && (lastMove.from === square || lastMove.to === square);

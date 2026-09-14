@@ -27,7 +27,7 @@ export function pickBotMove(game: Chess): Move | null {
 
   for (const move of moves) {
     let score = Math.random() * 0.4;
-    if (move.captured) score += VALUES[move.captured] * 2;
+    if (move.captured) score += (VALUES[move.captured] ?? 0) * 2;
     if (move.promotion) score += 8;
     game.move(move);
     if (game.isCheckmate()) score += 1000;
@@ -51,8 +51,8 @@ export function materialBalance(game: Chess): { white: number; black: number } {
   for (const row of game.board()) {
     for (const cell of row) {
       if (!cell) continue;
-      if (cell.color === "w") white += VALUES[cell.type];
-      else black += VALUES[cell.type];
+      if (cell.color === "w") white += VALUES[cell.type] ?? 0;
+      else black += VALUES[cell.type] ?? 0;
     }
   }
   return { white, black };
@@ -61,16 +61,16 @@ export function materialBalance(game: Chess): { white: number; black: number } {
 export function capturedGlyphs(history: Move[], byColor: "w" | "b"): string[] {
   return history
     .filter((m) => m.color === byColor && m.captured)
-    .map((m) => PIECE_GLYPHS[`${byColor === "w" ? "b" : "w"}${m.captured}`]);
+    .map((m) => PIECE_GLYPHS[`${byColor === "w" ? "b" : "w"}${m.captured}`] ?? "");
 }
 
 export function pairMoves(history: Move[]) {
   const rows: { no: number; white?: string; black?: string }[] = [];
   history.forEach((move, i) => {
     const index = Math.floor(i / 2);
-    if (!rows[index]) rows[index] = { no: index + 1 };
-    if (move.color === "w") rows[index].white = move.san;
-    else rows[index].black = move.san;
+    const row = rows[index] ?? (rows[index] = { no: index + 1 });
+    if (move.color === "w") row.white = move.san;
+    else row.black = move.san;
   });
   return rows;
 }

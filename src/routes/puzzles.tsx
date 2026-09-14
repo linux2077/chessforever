@@ -34,7 +34,7 @@ function PuzzlesPage() {
   const [feedback, setFeedback] = useState<"idle" | "wrong" | "right">("idle");
   const [selected, setSelected] = useState<Square | null>(null);
 
-  const puzzle = PUZZLES[index % PUZZLES.length];
+  const puzzle = PUZZLES[index % PUZZLES.length]!;
   const game = useMemo(() => new Chess(puzzle.fen), [puzzle.fen]);
 
   const legalTargets = selected
