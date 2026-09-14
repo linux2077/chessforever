@@ -17,7 +17,7 @@ export function AppHeader({ title, subtitle }: { title: string; subtitle: string
     <header className="flex items-center justify-between px-4 pt-4 pb-3">
       <div className="flex items-center gap-2.5">
         <div className="grid size-9 place-items-center rounded-xl bg-ink font-display text-lg leading-none font-extrabold text-board-lt shadow-sm">
-          K
+          C
         </div>
         <div>
           <p className="font-display text-[17px] leading-none font-extrabold tracking-tight">

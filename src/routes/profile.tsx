@@ -1,15 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ensureUnlocked } from "@/lib/gate.functions";
 import { AppHeader, AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/profile")({
+  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
-      { title: "Your Chess Profile & Ratings — Kaspanov" },
+      { title: "Your Chess Profile & Ratings — CHESSBAR" },
       {
         name: "description",
         content: "Track your rapid, blitz and bullet ratings, win rate and recent chess games.",
       },
-      { property: "og:title", content: "Your Chess Profile & Ratings — Kaspanov" },
+      { property: "og:title", content: "Your Chess Profile & Ratings — CHESSBAR" },
       {
         property: "og:description",
         content: "Ratings, win rate and recent game results in one compact profile.",

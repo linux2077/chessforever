@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ensureUnlocked } from "@/lib/gate.functions";
 import { useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
@@ -8,15 +9,16 @@ import { useChessGame } from "@/hooks/useChessGame";
 import { formatClock } from "@/lib/chess-engine";
 
 export const Route = createFileRoute("/")({
+  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
-      { title: "Kaspanov — Play Chess Ranked, Blitz & Puzzles" },
+      { title: "CHESSBAR — Play Chess Ranked, Blitz & Puzzles" },
       {
         name: "description",
         content:
           "Play chess on your phone: quick matches against the bot, rated blitz clocks, daily puzzles and a rating profile.",
       },
-      { property: "og:title", content: "Kaspanov — Play Chess Ranked, Blitz & Puzzles" },
+      { property: "og:title", content: "CHESSBAR — Play Chess Ranked, Blitz & Puzzles" },
       {
         property: "og:description",
         content: "Quick matches, blitz clocks and daily puzzles in a tournament-grade chess app.",
@@ -38,7 +40,7 @@ function PlayPage() {
 
   return (
     <AppShell>
-      <AppHeader title="Kaspanov" subtitle={`Ranked · ${TIME_CONTROLS[control]?.label ?? "Quick"}`} />
+      <AppHeader title="CHESSBAR" subtitle={`Ranked · ${TIME_CONTROLS[control]?.label ?? "Quick"}`} />
 
       <div className="px-4">
         <PlayerCard
