@@ -1,12 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ensureUnlocked } from "@/lib/gate.functions";
 import { useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { AppHeader, AppShell } from "@/components/AppShell";
-import { lockSite } from "@/lib/gate.functions";
 
 export const Route = createFileRoute("/profile")({
-  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
       { title: "Your Chess Profile & Ratings — CHESSBAR" },

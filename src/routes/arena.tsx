@@ -1,9 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ensureUnlocked } from "@/lib/gate.functions";
 import { AppHeader, AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/arena")({
-  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
       { title: "Arena Leaderboards — CHESSBAR Chess" },

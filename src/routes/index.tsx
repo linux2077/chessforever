@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ensureUnlocked } from "@/lib/gate.functions";
 import { useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
@@ -9,7 +8,6 @@ import { useChessGame } from "@/hooks/useChessGame";
 import { formatClock } from "@/lib/chess-engine";
 
 export const Route = createFileRoute("/")({
-  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
       { title: "CHESSBAR — Play Chess Ranked, Blitz & Puzzles" },

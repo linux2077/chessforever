@@ -6,10 +6,8 @@ import { MoveList } from "@/components/chess/MoveList";
 import { PlayerCard } from "@/components/chess/PlayerCard";
 import { useLocalGame } from "@/hooks/useLocalGame";
 import { formatClock } from "@/lib/chess-engine";
-import { ensureUnlocked } from "@/lib/gate.functions";
 
 export const Route = createFileRoute("/local")({
-  loader: () => ensureUnlocked(),
   head: () => ({
     meta: [
       { title: "Local Two-Player Chess — CHESSBAR" },
