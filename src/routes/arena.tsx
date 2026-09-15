@@ -33,12 +33,12 @@ function ArenaPage() {
       <AppHeader title="Arena" subtitle="Season 7 · 32 min left" />
 
       <div className="px-4">
-        <div className="rounded-2xl bg-ink px-3 py-3 text-cream shadow-sm">
-          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-cream/50">
+        <div className="rounded-2xl bg-cream px-3 py-3 text-foreground shadow-sm ring-1 ring-tea/30">
+          <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-foreground/50">
             Live blitz arena
           </p>
           <p className="mt-1 font-display text-[20px] leading-none font-extrabold">3+2 · 14 rounds</p>
-          <p className="mt-2 font-mono text-[11px] text-cream/60">412 players · you are 24th</p>
+          <p className="mt-2 font-mono text-[11px] text-foreground/60">412 players · you are 24th</p>
         </div>
       </div>
 
@@ -46,11 +46,11 @@ function ArenaPage() {
         <p className="mb-2 font-mono text-[10px] tracking-[0.2em] uppercase text-bark/70">
           Standings
         </p>
-        <div className="rounded-2xl bg-card p-3 ring-1 ring-black/5">
+        <div className="rounded-2xl bg-card p-3 ring-1 ring-white/10">
           {LADDER.map((row, i) => (
             <div
               key={row.name}
-              className="flex items-center justify-between border-b border-black/5 py-2 last:border-0"
+              className="flex items-center justify-between border-b border-white/10 py-2 last:border-0"
             >
               <div className="flex items-center gap-3">
                 <span className="w-5 font-mono font-bold text-pine">{i + 1}</span>
