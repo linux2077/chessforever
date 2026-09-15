@@ -53,6 +53,8 @@
   --color-bark: var(--bark);
   --color-brick: var(--brick);
   --color-tea: var(--tea);
+  --color-piece-lt: var(--piece-lt);
+  --color-piece-dk: var(--piece-dk);
 }
 
 :root {
@@ -61,9 +63,11 @@
   --ink: oklch(0.221 0.014 126.4);
   --paper: oklch(0.949 0.015 90.2);
   --cream: oklch(0.929 0.028 88.8);
-  --board-lt: oklch(0.898 0.037 84.6);
-  --board-dk: oklch(0.392 0.044 127);
-  --board-mid: oklch(0.765 0.059 88.1);
+  --board-lt: oklch(0.845 0.062 76.5);
+  --board-dk: oklch(0.492 0.083 52.8);
+  --board-mid: oklch(0.665 0.079 64.1);
+  --piece-lt: oklch(0.972 0.017 88);
+  --piece-dk: oklch(0.196 0.017 48);
   --pine: oklch(0.343 0.037 146.1);
   --pine-soft: oklch(0.412 0.043 143.6);
   --bark: oklch(0.421 0.033 66.7);
