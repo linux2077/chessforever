@@ -1,6 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRouter } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { AppHeader, AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/profile")({
@@ -30,9 +28,6 @@ const GAMES = [
 const CURVE = [22, 34, 30, 44, 40, 58, 66, 62, 78];
 
 function ProfilePage() {
-  const router = useRouter();
-  const lock = useServerFn(lockSite);
-
   return (
     <AppShell>
       <AppHeader title="Milan R." subtitle="Member since 2023" />
@@ -110,18 +105,6 @@ function ProfilePage() {
         </div>
       </div>
 
-      <div className="mt-3 px-4">
-        <button
-          type="button"
-          onClick={async () => {
-            await lock({});
-            await router.navigate({ to: "/unlock" });
-          }}
-          className="w-full rounded-2xl bg-cream px-3 py-3 font-display text-[14px] font-bold text-bark ring-1 ring-black/5"
-        >
-          Lock CHESSBAR on this device
-        </button>
-      </div>
     </AppShell>
   );
 }
