@@ -60,25 +60,26 @@
 :root {
   --radius: 0.75rem;
 
-  --ink: oklch(0.221 0.014 126.4);
-  --paper: oklch(0.949 0.015 90.2);
-  --cream: oklch(0.929 0.028 88.8);
+  /* Dark "night bar" theme — near-black surfaces, warm wood board. */
+  --ink: oklch(0.905 0.012 88);
+  --paper: oklch(0.163 0.007 90);
+  --cream: oklch(0.245 0.012 85);
   --board-lt: oklch(0.845 0.062 76.5);
   --board-dk: oklch(0.492 0.083 52.8);
   --board-mid: oklch(0.665 0.079 64.1);
   --piece-lt: oklch(0.972 0.017 88);
   --piece-dk: oklch(0.196 0.017 48);
-  --pine: oklch(0.343 0.037 146.1);
-  --pine-soft: oklch(0.412 0.043 143.6);
-  --bark: oklch(0.421 0.033 66.7);
-  --brick: oklch(0.573 0.152 38.7);
+  --pine: oklch(0.68 0.1 146);
+  --pine-soft: oklch(0.55 0.07 144);
+  --bark: oklch(0.65 0.02 80);
+  --brick: oklch(0.66 0.15 38);
   --tea: oklch(0.673 0.125 75.8);
 
-  --background: var(--paper);
+  --background: oklch(0.13 0.004 90);
   --foreground: var(--ink);
-  --card: oklch(0.982 0.009 93.6);
+  --card: oklch(0.21 0.01 88);
   --card-foreground: var(--ink);
-  --popover: oklch(0.982 0.009 93.6);
+  --popover: oklch(0.21 0.01 88);
   --popover-foreground: var(--ink);
   --primary: var(--ink);
   --primary-foreground: var(--cream);
@@ -87,11 +88,11 @@
   --muted: var(--cream);
   --muted-foreground: var(--bark);
   --accent: var(--brick);
-  --accent-foreground: var(--paper);
+  --accent-foreground: var(--piece-lt);
   --destructive: var(--brick);
-  --destructive-foreground: var(--paper);
-  --border: oklch(0.221 0.014 126.4 / 10%);
-  --input: oklch(0.221 0.014 126.4 / 15%);
+  --destructive-foreground: var(--piece-lt);
+  --border: oklch(0.9 0.01 88 / 10%);
+  --input: oklch(0.9 0.01 88 / 15%);
   --ring: var(--pine);
 }
 
@@ -101,7 +102,7 @@
   }
 
   body {
-    background-color: var(--color-ink);
+    background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
