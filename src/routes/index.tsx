@@ -94,13 +94,15 @@ function PlayPage() {
                 game.reset(tc.seconds);
               }}
               className={`rounded-2xl px-3 py-3 text-left ${
-                i === control ? "bg-ink text-cream shadow-sm" : "bg-cream ring-1 ring-black/5"
+                i === control
+                  ? "bg-cream text-foreground shadow-sm"
+                  : "bg-cream/50 ring-1 ring-white/10"
               }`}
             >
               <p className="font-display text-[15px] leading-tight font-bold">{tc.label}</p>
               <p
                 className={`mt-1 font-mono text-[10px] ${
-                  i === control ? "text-cream/60" : "text-bark/70"
+                  i === control ? "text-foreground/60" : "text-bark/70"
                 }`}
               >
                 {tc.detail}

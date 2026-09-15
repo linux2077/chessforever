@@ -98,13 +98,15 @@ function LocalPage() {
                 game.reset(option.seconds);
               }}
               className={`rounded-2xl px-3 py-3 text-left ${
-                i === clock ? "bg-ink text-cream shadow-sm" : "bg-cream ring-1 ring-black/5"
+                i === clock
+                  ? "bg-cream text-foreground shadow-sm"
+                  : "bg-cream/50 ring-1 ring-white/10"
               }`}
             >
               <p className="font-display text-[15px] leading-tight font-bold">{option.label}</p>
               <p
                 className={`mt-1 font-mono text-[10px] ${
-                  i === clock ? "text-cream/60" : "text-bark/70"
+                  i === clock ? "text-foreground/60" : "text-bark/70"
                 }`}
               >
                 {option.detail}
@@ -118,14 +120,14 @@ function LocalPage() {
         <button
           type="button"
           onClick={() => game.setPaused((p) => !p)}
-          className="rounded-2xl bg-cream px-3 py-2.5 font-display text-[14px] font-bold ring-1 ring-black/5"
+          className="rounded-2xl bg-cream px-3 py-2.5 font-display text-[14px] font-bold ring-1 ring-white/10"
         >
           {game.paused ? "Resume" : "Pause"}
         </button>
         <button
           type="button"
           onClick={game.undo}
-          className="rounded-2xl bg-cream px-3 py-2.5 font-display text-[14px] font-bold ring-1 ring-black/5"
+          className="rounded-2xl bg-cream px-3 py-2.5 font-display text-[14px] font-bold ring-1 ring-white/10"
         >
           Undo
         </button>
@@ -133,7 +135,7 @@ function LocalPage() {
           type="button"
           onClick={() => game.setAutoFlip((f) => !f)}
           className={`rounded-2xl px-3 py-2.5 font-display text-[14px] font-bold ${
-            game.autoFlip ? "bg-pine text-cream" : "bg-cream ring-1 ring-black/5"
+            game.autoFlip ? "bg-pine text-cream" : "bg-cream ring-1 ring-white/10"
           }`}
         >
           Flip

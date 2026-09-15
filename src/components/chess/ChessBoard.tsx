@@ -26,7 +26,7 @@ export function ChessBoard({
   const board = game.board();
 
   return (
-    <div className="grid grid-cols-8 overflow-hidden rounded-2xl ring-1 ring-black/5 outline-1 -outline-offset-1 outline-black/5">
+    <div className="grid grid-cols-8 overflow-hidden rounded-2xl ring-1 ring-white/10 outline-1 -outline-offset-1 outline-white/10">
       {ranks.map((rank) =>
         files.map((file) => {
           const square = `${file}${rank}` as Square;

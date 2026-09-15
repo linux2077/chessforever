@@ -63,7 +63,7 @@ function PuzzlesPage() {
       <AppHeader title="Puzzles" subtitle={`Streak ${solved} · Mate in 1`} />
 
       <div className="px-4">
-        <div className="flex items-center justify-between rounded-2xl bg-cream px-3 py-2.5 ring-1 ring-black/5">
+        <div className="flex items-center justify-between rounded-2xl bg-cream px-3 py-2.5 ring-1 ring-white/10">
           <div>
             <p className="font-display text-[15px] leading-none font-semibold">{puzzle.theme}</p>
             <p className="mt-1 font-mono text-[11px] text-bark/70">White to play · mate in one</p>
@@ -85,7 +85,7 @@ function PuzzlesPage() {
       </div>
 
       <div className="mt-3 px-4">
-        <div className="rounded-2xl bg-card px-3 py-3 ring-1 ring-black/5">
+        <div className="rounded-2xl bg-card px-3 py-3 ring-1 ring-white/10">
           <p className="font-mono text-[10px] tracking-[0.15em] uppercase text-bark/70">Result</p>
           <p
             className={`mt-1 font-display text-[15px] font-bold ${
@@ -105,7 +105,7 @@ function PuzzlesPage() {
               setFeedback("idle");
               setSelected(null);
             }}
-            className="mt-3 w-full rounded-xl bg-ink px-3 py-2.5 font-display text-[14px] font-bold text-cream"
+            className="mt-3 w-full rounded-xl bg-cream px-3 py-2.5 font-display text-[14px] font-bold text-foreground ring-1 ring-tea/30"
           >
             Next puzzle
           </button>

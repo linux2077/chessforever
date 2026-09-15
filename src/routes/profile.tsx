@@ -33,7 +33,7 @@ function ProfilePage() {
       <AppHeader title="Milan R." subtitle="Member since 2023" />
 
       <div className="px-4">
-        <div className="rounded-2xl bg-card p-3 ring-1 ring-black/5">
+        <div className="rounded-2xl bg-card p-3 ring-1 ring-white/10">
           <div className="mb-3 flex items-center justify-between">
             <p className="font-display text-[15px] font-bold">Profile</p>
             <p className="font-mono text-[11px] text-pine">▲ 128 / 90d</p>
@@ -57,7 +57,7 @@ function ProfilePage() {
           <p className="mb-1.5 font-mono text-[10px] tracking-[0.15em] uppercase text-bark/70">
             Rating · 30 games
           </p>
-          <div className="flex h-16 items-end gap-1 rounded-xl bg-cream/70 px-2 pb-2 ring-1 ring-black/5">
+          <div className="flex h-16 items-end gap-1 rounded-xl bg-cream/70 px-2 pb-2 ring-1 ring-white/10">
             {CURVE.map((height, i) => (
               <span
                 key={i}
@@ -71,7 +71,7 @@ function ProfilePage() {
             {GAMES.map((game) => (
               <div
                 key={game.opponent}
-                className="flex items-center justify-between border-b border-black/5 py-1.5 last:border-0"
+                className="flex items-center justify-between border-b border-white/10 py-1.5 last:border-0"
               >
                 <div className="flex items-center gap-2.5">
                   <span
