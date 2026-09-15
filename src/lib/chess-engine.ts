@@ -1,12 +1,12 @@
 import { Chess, type Move, type Square } from "chess.js";
 
 export const PIECE_GLYPHS: Record<string, string> = {
-  wk: "♔",
-  wq: "♕",
-  wr: "♖",
-  wb: "♗",
-  wn: "♘",
-  wp: "♙",
+  wk: "♚",
+  wq: "♛",
+  wr: "♜",
+  wb: "♝",
+  wn: "♞",
+  wp: "♟",
   bk: "♚",
   bq: "♛",
   br: "♜",

@@ -53,8 +53,8 @@ export function ChessBoard({
               )}
               {piece && (
                 <span
-                  className={`piece-drop relative font-display text-[clamp(20px,7vw,30px)] leading-none font-extrabold ${
-                    piece.color === "w" ? "text-pine drop-shadow-sm" : "text-ink"
+                  className={`piece-drop relative font-display text-[clamp(22px,7.6vw,34px)] leading-none font-extrabold ${
+                    piece.color === "w" ? "piece-white text-piece-lt" : "piece-black text-piece-dk"
                   }`}
                 >
                   {PIECE_GLYPHS[`${piece.color}${piece.type}`]}
