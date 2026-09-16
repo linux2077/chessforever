@@ -3,7 +3,7 @@ import { Chess, capturedGlyphs, pairMoves, pickBotMove, type Move, type Square }
 
 export type TimeControl = { label: string; seconds: number };
 
-export function useChessGame(initialSeconds = 300) {
+export function useChessGame(initialSeconds = 300, initialElo = 1500) {
   const gameRef = useRef(new Chess());
   const [fen, setFen] = useState(gameRef.current.fen());
   const [selected, setSelected] = useState<Square | null>(null);
@@ -11,6 +11,8 @@ export function useChessGame(initialSeconds = 300) {
   const [whiteClock, setWhiteClock] = useState(initialSeconds);
   const [blackClock, setBlackClock] = useState(initialSeconds);
   const [flagged, setFlagged] = useState<"w" | "b" | null>(null);
+  const [elo, setElo] = useState(initialElo);
+
 
   const game = gameRef.current;
   const turn = game.turn();
@@ -81,13 +83,14 @@ export function useChessGame(initialSeconds = 300) {
   useEffect(() => {
     if (gameOver || gameRef.current.turn() !== "b") return;
     const id = setTimeout(() => {
-      const move = pickBotMove(gameRef.current);
+      const move = pickBotMove(gameRef.current, elo);
       if (!move) return;
       const played = gameRef.current.move(move.san) as Move;
       commit(played);
     }, 650);
     return () => clearTimeout(id);
-  }, [fen, gameOver, commit]);
+  }, [fen, gameOver, commit, elo]);
+
 
   const reset = useCallback(
     (seconds = initialSeconds) => {
@@ -122,6 +125,9 @@ export function useChessGame(initialSeconds = 300) {
     lastMove,
     playSquare,
     reset,
+    elo,
+    setElo,
+
     whiteClock,
     blackClock,
     gameOver,
