@@ -3,7 +3,7 @@ import { Chess, capturedGlyphs, pairMoves, pickBotMove, type Move, type Square }
 
 export type TimeControl = { label: string; seconds: number };
 
-export function useChessGame(initialSeconds = 300) {
+export function useChessGame(initialSeconds = 300, initialElo = 1500) {
   const gameRef = useRef(new Chess());
   const [fen, setFen] = useState(gameRef.current.fen());
   const [selected, setSelected] = useState<Square | null>(null);
@@ -11,6 +11,8 @@ export function useChessGame(initialSeconds = 300) {
   const [whiteClock, setWhiteClock] = useState(initialSeconds);
   const [blackClock, setBlackClock] = useState(initialSeconds);
   const [flagged, setFlagged] = useState<"w" | "b" | null>(null);
+  const [elo, setElo] = useState(initialElo);
+
 
   const game = gameRef.current;
   const turn = game.turn();

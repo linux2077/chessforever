@@ -17,21 +17,56 @@ export const PIECE_GLYPHS: Record<string, string> = {
 
 const VALUES: Record<string, number> = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 0 };
 
-/** Simple greedy bot: prefers mate, then best material capture, with light randomness. */
-export function pickBotMove(game: Chess): Move | null {
+export const ELO_LEVELS = [800, 1000, 1200, 1500, 1800, 2100, 2400] as const;
+
+function evaluate(game: Chess): number {
+  // score from black's point of view (bot plays black)
+  const { white, black } = materialBalance(game);
+  return black - white;
+}
+
+/**
+ * Bot move picker whose strength scales with `elo`:
+ * stronger levels look at the opponent's best reply and blunder less often.
+ */
+export function pickBotMove(game: Chess, elo = 1500): Move | null {
   const moves = game.moves({ verbose: true }) as Move[];
   if (moves.length === 0) return null;
+
+  // 800 -> ~45% random moves, 2400 -> ~0%
+  const blunderChance = Math.max(0, Math.min(0.45, (1800 - elo) / 2200));
+  if (Math.random() < blunderChance) {
+    return moves[Math.floor(Math.random() * moves.length)] ?? null;
+  }
+
+  const lookAhead = elo >= 1500;
+  const noise = elo >= 2100 ? 0.1 : elo >= 1500 ? 0.4 : 1.2;
 
   let best: Move[] = [];
   let bestScore = -Infinity;
 
   for (const move of moves) {
-    let score = Math.random() * 0.4;
+    let score = Math.random() * noise;
     if (move.captured) score += (VALUES[move.captured] ?? 0) * 2;
     if (move.promotion) score += 8;
     game.move(move);
+
     if (game.isCheckmate()) score += 1000;
     else if (game.isCheck()) score += 1.5;
+
+    if (lookAhead && !game.isGameOver()) {
+      // penalise moves that let the opponent grab material back
+      const replies = game.moves({ verbose: true }) as Move[];
+      let worst = 0;
+      for (const reply of replies) {
+        game.move(reply);
+        const value = evaluate(game);
+        game.undo();
+        if (value < worst) worst = value;
+      }
+      score += worst * (elo >= 2100 ? 1.4 : 0.9);
+    }
+
     game.undo();
 
     if (score > bestScore) {
@@ -44,6 +79,7 @@ export function pickBotMove(game: Chess): Move | null {
 
   return best[Math.floor(Math.random() * best.length)] ?? null;
 }
+
 
 export function materialBalance(game: Chess): { white: number; black: number } {
   let white = 0;
