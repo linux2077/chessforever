@@ -27,14 +27,31 @@ export const Route = createFileRoute("/")({
 });
 
 const TIME_CONTROLS: { label: string; detail: string; seconds: number }[] = [
-  { label: "Quick", detail: "Match", seconds: 600 },
-  { label: "Bot", detail: "CPU 1500", seconds: 300 },
+  { label: "Hyper", detail: "30s", seconds: 30 },
   { label: "Bullet", detail: "1+0", seconds: 60 },
+  { label: "Bullet+", detail: "2+0", seconds: 120 },
+  { label: "Blitz", detail: "3+0", seconds: 180 },
+  { label: "Blitz+", detail: "5+0", seconds: 300 },
+  { label: "Rapid", detail: "10+0", seconds: 600 },
+  { label: "Rapid+", detail: "15+0", seconds: 900 },
+  { label: "Classic", detail: "30+0", seconds: 1800 },
+  { label: "Long", detail: "60+0", seconds: 3600 },
 ];
 
+const ELO_TITLES: Record<number, string> = {
+  800: "Débutant",
+  1000: "Novice",
+  1200: "Club",
+  1500: "Confirmé",
+  1800: "Expert",
+  2100: "Maître",
+  2400: "Grand maître",
+};
+
 function PlayPage() {
-  const [control, setControl] = useState(0);
-  const game = useChessGame(600);
+  const [control, setControl] = useState(5);
+  const game = useChessGame(600, 1500);
+
 
   return (
     <AppShell>
