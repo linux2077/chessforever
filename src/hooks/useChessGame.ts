@@ -83,13 +83,14 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
   useEffect(() => {
     if (gameOver || gameRef.current.turn() !== "b") return;
     const id = setTimeout(() => {
-      const move = pickBotMove(gameRef.current);
+      const move = pickBotMove(gameRef.current, elo);
       if (!move) return;
       const played = gameRef.current.move(move.san) as Move;
       commit(played);
     }, 650);
     return () => clearTimeout(id);
-  }, [fen, gameOver, commit]);
+  }, [fen, gameOver, commit, elo]);
+
 
   const reset = useCallback(
     (seconds = initialSeconds) => {
@@ -124,6 +125,9 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
     lastMove,
     playSquare,
     reset,
+    elo,
+    setElo,
+
     whiteClock,
     blackClock,
     gameOver,
