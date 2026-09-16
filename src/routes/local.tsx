@@ -28,14 +28,21 @@ export const Route = createFileRoute("/local")({
 });
 
 const CLOCKS = [
+  { label: "Hyper", detail: "30s", seconds: 30 },
   { label: "Bullet", detail: "1+0", seconds: 60 },
-  { label: "Blitz", detail: "5+0", seconds: 300 },
+  { label: "Bullet+", detail: "2+0", seconds: 120 },
+  { label: "Blitz", detail: "3+0", seconds: 180 },
+  { label: "Blitz+", detail: "5+0", seconds: 300 },
   { label: "Rapid", detail: "10+0", seconds: 600 },
+  { label: "Rapid+", detail: "15+0", seconds: 900 },
+  { label: "Classic", detail: "30+0", seconds: 1800 },
+  { label: "Long", detail: "60+0", seconds: 3600 },
 ];
 
 function LocalPage() {
-  const [clock, setClock] = useState(1);
+  const [clock, setClock] = useState(4);
   const game = useLocalGame(300);
+
   const flipped = game.autoFlip && game.turn === "b";
 
   return (

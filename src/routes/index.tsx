@@ -5,7 +5,7 @@ import { ChessBoard } from "@/components/chess/ChessBoard";
 import { MoveList } from "@/components/chess/MoveList";
 import { PlayerCard } from "@/components/chess/PlayerCard";
 import { useChessGame } from "@/hooks/useChessGame";
-import { formatClock } from "@/lib/chess-engine";
+import { ELO_LEVELS, formatClock } from "@/lib/chess-engine";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,12 +55,17 @@ function PlayPage() {
 
   return (
     <AppShell>
-      <AppHeader title="CHESSBAR" subtitle={`Ranked · ${TIME_CONTROLS[control]?.label ?? "Quick"}`} />
+      <AppHeader
+        title="CHESSBAR"
+        subtitle={`Elo ${game.elo} · ${TIME_CONTROLS[control]?.detail ?? "10+0"}`}
+      />
+
 
       <div className="px-4">
         <PlayerCard
-          name="R. Vasseur"
-          rating={2104}
+          name={`Bot ${ELO_TITLES[game.elo] ?? ""}`.trim()}
+          rating={game.elo}
+
           side="Black"
           initial="R"
           clock={formatClock(game.blackClock)}
@@ -99,7 +104,39 @@ function PlayPage() {
 
       <div className="mt-4 px-4">
         <p className="mb-2 font-mono text-[10px] tracking-[0.2em] uppercase text-bark/70">
-          Quick play
+          Niveau de l'adversaire
+        </p>
+        <div className="grid grid-cols-4 gap-2">
+          {ELO_LEVELS.map((level) => (
+            <button
+              key={level}
+              type="button"
+              onClick={() => {
+                game.setElo(level);
+                game.reset(TIME_CONTROLS[control]?.seconds ?? 600);
+              }}
+              className={`rounded-2xl px-2 py-2.5 text-left ${
+                level === game.elo
+                  ? "bg-pine text-cream shadow-sm"
+                  : "bg-cream/50 ring-1 ring-white/10"
+              }`}
+            >
+              <p className="font-display text-[15px] leading-tight font-bold">{level}</p>
+              <p
+                className={`mt-0.5 font-mono text-[9px] ${
+                  level === game.elo ? "text-cream/70" : "text-bark/70"
+                }`}
+              >
+                {ELO_TITLES[level]}
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4 px-4">
+        <p className="mb-2 font-mono text-[10px] tracking-[0.2em] uppercase text-bark/70">
+          Temps de partie
         </p>
         <div className="grid grid-cols-3 gap-2.5">
           {TIME_CONTROLS.map((tc, i) => (
@@ -128,6 +165,7 @@ function PlayPage() {
           ))}
         </div>
       </div>
+
 
       {game.gameOver && (
         <div className="mt-3 px-4">
