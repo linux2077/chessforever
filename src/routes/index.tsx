@@ -53,6 +53,21 @@ const ELO_TITLES: Record<number, string> = {
 function PlayPage() {
   const [control, setControl] = useState(5);
   const game = useChessGame(600, 1500);
+  const { rating, games, ready, applyResult } = usePlayerRating();
+  const [previousElo, setPreviousElo] = useState(rating);
+  const scoredRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!ready || !game.result) return;
+    const key = `${game.pgn}|${game.result}`;
+    if (scoredRef.current === key) return;
+    scoredRef.current = key;
+    setPreviousElo(rating);
+    applyResult(game.elo, game.result === "win" ? 1 : game.result === "draw" ? 0.5 : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, game.result, game.pgn]);
+
+
 
 
   return (
