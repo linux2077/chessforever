@@ -106,7 +106,7 @@ function PlayPage() {
         <PlayerCard
           variant="self"
           name="You"
-          rating={1847}
+          rating={rating}
           side="White"
           initial="M"
           clock={formatClock(game.whiteClock)}
