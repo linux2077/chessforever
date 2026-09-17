@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
+import { CoachPanel } from "@/components/chess/CoachPanel";
 import { MoveList } from "@/components/chess/MoveList";
 import { PlayerCard } from "@/components/chess/PlayerCard";
 import { useChessGame } from "@/hooks/useChessGame";
+import { usePlayerRating } from "@/hooks/usePlayerRating";
 import { ELO_LEVELS, formatClock } from "@/lib/chess-engine";
 
 export const Route = createFileRoute("/")({
@@ -51,6 +53,21 @@ const ELO_TITLES: Record<number, string> = {
 function PlayPage() {
   const [control, setControl] = useState(5);
   const game = useChessGame(600, 1500);
+  const { rating, games, ready, applyResult } = usePlayerRating();
+  const [previousElo, setPreviousElo] = useState(rating);
+  const scoredRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!ready || !game.result) return;
+    const key = `${game.pgn}|${game.result}`;
+    if (scoredRef.current === key) return;
+    scoredRef.current = key;
+    setPreviousElo(rating);
+    applyResult(game.elo, game.result === "win" ? 1 : game.result === "draw" ? 0.5 : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, game.result, game.pgn]);
+
+
 
 
   return (
@@ -89,7 +106,7 @@ function PlayPage() {
         <PlayerCard
           variant="self"
           name="You"
-          rating={1847}
+          rating={rating}
           side="White"
           initial="M"
           clock={formatClock(game.whiteClock)}
@@ -166,6 +183,19 @@ function PlayPage() {
         </div>
       </div>
 
+
+      {game.gameOver && game.result && (
+        <div className="mt-4 px-4">
+          <CoachPanel
+            pgn={game.pgn}
+            botElo={game.elo}
+            result={game.result}
+            generalElo={rating}
+            previousElo={previousElo}
+            games={games}
+          />
+        </div>
+      )}
 
       {game.gameOver && (
         <div className="mt-3 px-4">

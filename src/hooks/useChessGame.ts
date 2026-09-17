@@ -116,10 +116,24 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fen, flagged]);
 
+  const result: "win" | "loss" | "draw" | null = flagged
+    ? flagged === "w"
+      ? "loss"
+      : "win"
+    : game.isCheckmate()
+      ? turn === "w"
+        ? "loss"
+        : "win"
+      : game.isDraw()
+        ? "draw"
+        : null;
+
   return {
     game,
     fen,
     turn,
+    result,
+    pgn: game.pgn(),
     selected,
     legalTargets,
     lastMove,
