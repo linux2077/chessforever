@@ -184,6 +184,19 @@ function PlayPage() {
       </div>
 
 
+      {game.gameOver && game.result && (
+        <div className="mt-4 px-4">
+          <CoachPanel
+            pgn={game.pgn}
+            botElo={game.elo}
+            result={game.result}
+            generalElo={rating}
+            previousElo={previousElo}
+            games={games}
+          />
+        </div>
+      )}
+
       {game.gameOver && (
         <div className="mt-3 px-4">
           <button
