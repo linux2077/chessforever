@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
+import { CoachPanel } from "@/components/chess/CoachPanel";
 import { MoveList } from "@/components/chess/MoveList";
 import { PlayerCard } from "@/components/chess/PlayerCard";
 import { useChessGame } from "@/hooks/useChessGame";
+import { usePlayerRating } from "@/hooks/usePlayerRating";
 import { ELO_LEVELS, formatClock } from "@/lib/chess-engine";
 
 export const Route = createFileRoute("/")({
