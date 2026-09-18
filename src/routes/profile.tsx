@@ -14,6 +14,8 @@ export const Route = createFileRoute("/profile")({
         property: "og:description",
         content: "Ratings, win rate and recent game results in one compact profile.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProfilePage,

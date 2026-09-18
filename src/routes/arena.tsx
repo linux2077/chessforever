@@ -14,6 +14,8 @@ export const Route = createFileRoute("/arena")({
         property: "og:description",
         content: "Weekly blitz and bullet ladders with live arena standings.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ArenaPage,
