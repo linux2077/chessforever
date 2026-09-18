@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      online_games: {
+        Row: {
+          base_seconds: number
+          black_clock: number
+          black_token: string | null
+          code: string
+          created_at: string
+          fen: string
+          id: string
+          last_from: string | null
+          last_to: string | null
+          pgn: string
+          status: string
+          updated_at: string
+          white_clock: number
+          white_token: string | null
+        }
+        Insert: {
+          base_seconds?: number
+          black_clock?: number
+          black_token?: string | null
+          code: string
+          created_at?: string
+          fen?: string
+          id?: string
+          last_from?: string | null
+          last_to?: string | null
+          pgn?: string
+          status?: string
+          updated_at?: string
+          white_clock?: number
+          white_token?: string | null
+        }
+        Update: {
+          base_seconds?: number
+          black_clock?: number
+          black_token?: string | null
+          code?: string
+          created_at?: string
+          fen?: string
+          id?: string
+          last_from?: string | null
+          last_to?: string | null
+          pgn?: string
+          status?: string
+          updated_at?: string
+          white_clock?: number
+          white_token?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
