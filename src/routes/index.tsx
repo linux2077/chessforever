@@ -23,6 +23,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Quick matches, blitz clocks and daily puzzles in a tournament-grade chess app.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PlayPage,
@@ -49,6 +51,8 @@ const ELO_TITLES: Record<number, string> = {
   2100: "Maître",
   2400: "Grand maître",
 };
+
+const CHESS_SCREEN PICKS = []
 
 function PlayPage() {
   const [control, setControl] = useState(5);
