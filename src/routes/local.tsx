@@ -22,6 +22,8 @@ export const Route = createFileRoute("/local")({
         property: "og:description",
         content: "Pass-and-play chess for two players on one device.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LocalPage,

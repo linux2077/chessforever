@@ -17,6 +17,8 @@ export const Route = createFileRoute("/puzzles")({
         property: "og:description",
         content: "Mate-in-one tactics puzzles with instant feedback and a solving streak.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PuzzlesPage,

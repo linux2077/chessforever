@@ -23,6 +23,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Quick matches, blitz clocks and daily puzzles in a tournament-grade chess app.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PlayPage,
@@ -49,6 +51,45 @@ const ELO_TITLES: Record<number, string> = {
   2100: "Maître",
   2400: "Grand maître",
 };
+
+const CHESS_SCREEN_PICKS = [
+  {
+    title: "Rematch",
+    meta: "Série ARTE · 2024 · 6 épisodes",
+    tag: "Kasparov vs Deep Blue",
+    note: "Thriller tendu sur le duel de 1997 entre Garry Kasparov et l'ordinateur d'IBM.",
+  },
+  {
+    title: "Le Jeu de la dame",
+    meta: "Série Netflix · 2020 · 7 épisodes",
+    tag: "Prodige",
+    note: "L'ascension de Beth Harmon, entre préparation, addiction et domination sur l'échiquier.",
+  },
+  {
+    title: "The Royal Game",
+    meta: "Film · 2021",
+    tag: "Psychologie",
+    note: "Adaptation de Stefan Zweig, où les échecs deviennent une bataille mentale en huis clos.",
+  },
+  {
+    title: "Critical Thinking",
+    meta: "Film · 2020",
+    tag: "Équipe scolaire",
+    note: "Une équipe de lycéens de Miami vise le championnat national sous la conduite de son coach.",
+  },
+  {
+    title: "Fahim",
+    meta: "Film · 2019",
+    tag: "Histoire vraie",
+    note: "Le parcours de Fahim Mohammad, jeune talent arrivé en France avec son père.",
+  },
+  {
+    title: "Magnus",
+    meta: "Documentaire · 2016",
+    tag: "Champion du monde",
+    note: "Portrait de Magnus Carlsen, de jeune prodige à challenger du titre mondial.",
+  },
+] as const;
 
 function PlayPage() {
   const [control, setControl] = useState(5);
@@ -208,6 +249,39 @@ function PlayPage() {
           </button>
         </div>
       )}
+
+      <section className="mt-5 px-4 pb-5">
+        <div className="mb-2 flex items-end justify-between gap-3">
+          <div>
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-bark/70">
+              Films et séries
+            </p>
+            <h2 className="mt-1 font-display text-[18px] leading-tight font-extrabold">
+              À regarder après la partie
+            </h2>
+          </div>
+          <span className="rounded-full bg-cream px-2.5 py-1 font-mono text-[10px] font-bold text-tea ring-1 ring-white/10">
+            Échecs
+          </span>
+        </div>
+
+        <div className="space-y-2.5">
+          {CHESS_SCREEN_PICKS.map((pick) => (
+            <article key={pick.title} className="rounded-2xl bg-card p-3 ring-1 ring-white/10">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-display text-[16px] leading-tight font-bold">{pick.title}</h3>
+                  <p className="mt-1 font-mono text-[10px] text-bark/70">{pick.meta}</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-cream px-2 py-1 font-mono text-[9px] font-bold text-pine">
+                  {pick.tag}
+                </span>
+              </div>
+              <p className="mt-2 text-[12px] leading-relaxed text-bark">{pick.note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
     </AppShell>
   );
 }
