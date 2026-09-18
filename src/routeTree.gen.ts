@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArenaRouteImport } from './routes/arena'
 import { Route as LocalRouteImport } from './routes/local'
+import { Route as OnlineRouteImport } from './routes/online'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PuzzlesRouteImport } from './routes/puzzles'
 
@@ -30,6 +31,11 @@ const LocalRoute = LocalRouteImport.update({
   path: '/local',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnlineRoute = OnlineRouteImport.update({
+  id: '/online',
+  path: '/online',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
   '/local': typeof LocalRoute
+  '/online': typeof OnlineRoute
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
   '/local': typeof LocalRoute
+  '/online': typeof OnlineRoute
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
 }
@@ -60,21 +68,24 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/arena': typeof ArenaRoute
   '/local': typeof LocalRoute
+  '/online': typeof OnlineRoute
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/arena' | '/local' | '/profile' | '/puzzles'
+  fullPaths: '/' | '/arena' | '/local' | '/online' | '/profile' | '/puzzles'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/arena' | '/local' | '/profile' | '/puzzles'
-  id: '__root__' | '/' | '/arena' | '/local' | '/profile' | '/puzzles'
+  to: '/' | '/arena' | '/local' | '/online' | '/profile' | '/puzzles'
+  id:
+    '__root__' | '/' | '/arena' | '/local' | '/online' | '/profile' | '/puzzles'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArenaRoute: typeof ArenaRoute
   LocalRoute: typeof LocalRoute
+  OnlineRoute: typeof OnlineRoute
   ProfileRoute: typeof ProfileRoute
   PuzzlesRoute: typeof PuzzlesRoute
 }
@@ -102,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/online': {
+      id: '/online'
+      path: '/online'
+      fullPath: '/online'
+      preLoaderRoute: typeof OnlineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -123,6 +141,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArenaRoute: ArenaRoute,
   LocalRoute: LocalRoute,
+  OnlineRoute: OnlineRoute,
   ProfileRoute: ProfileRoute,
   PuzzlesRoute: PuzzlesRoute,
 }

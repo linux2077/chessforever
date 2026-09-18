@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 const items = [
   { to: "/", glyph: "♞", label: "Play" },
+  { to: "/online", glyph: "⚡", label: "Online" },
   { to: "/local", glyph: "⇄", label: "Local" },
   { to: "/puzzles", glyph: "❔", label: "Puzzles" },
   { to: "/arena", glyph: "🏆", label: "Arena" },
@@ -11,7 +12,7 @@ const items = [
 export function BottomNav() {
   return (
     <nav className="mt-auto border-t border-white/10 px-4 pt-3 pb-5">
-      <div className="grid grid-cols-5 gap-1 rounded-2xl bg-cream/60 p-1.5 ring-1 ring-white/10">
+      <div className="grid grid-cols-6 gap-1 rounded-2xl bg-cream/60 p-1.5 ring-1 ring-white/10">
         {items.map((item) => (
           <Link
             key={item.to}
