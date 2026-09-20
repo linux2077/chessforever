@@ -155,6 +155,8 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
     reset,
     elo,
     setElo,
+    thinking,
+
 
     whiteClock,
     blackClock,
