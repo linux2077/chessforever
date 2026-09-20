@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Chess, capturedGlyphs, pairMoves, pickBotMove, type Move, type Square } from "@/lib/chess-engine";
+import {
+  Chess,
+  botThinkTime,
+  capturedGlyphs,
+  pairMoves,
+  pickBotMove,
+  type Move,
+  type Square,
+} from "@/lib/chess-engine";
 
 export type TimeControl = { label: string; seconds: number };
 
