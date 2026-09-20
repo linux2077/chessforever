@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Chess, capturedGlyphs, pairMoves, pickBotMove, type Move, type Square } from "@/lib/chess-engine";
+import {
+  Chess,
+  botThinkTime,
+  capturedGlyphs,
+  pairMoves,
+  pickBotMove,
+  type Move,
+  type Square,
+} from "@/lib/chess-engine";
 
 export type TimeControl = { label: string; seconds: number };
 
@@ -12,6 +20,7 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
   const [blackClock, setBlackClock] = useState(initialSeconds);
   const [flagged, setFlagged] = useState<"w" | "b" | null>(null);
   const [elo, setElo] = useState(initialElo);
+  const [thinking, setThinking] = useState(false);
 
 
   const game = gameRef.current;
@@ -79,16 +88,21 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
     [selected, gameOver, commit],
   );
 
-  // Bot answers for black
+  // Bot answers for black — thinking time grows with its Elo
   useEffect(() => {
     if (gameOver || gameRef.current.turn() !== "b") return;
+    setThinking(true);
     const id = setTimeout(() => {
       const move = pickBotMove(gameRef.current, elo);
+      setThinking(false);
       if (!move) return;
       const played = gameRef.current.move(move.san) as Move;
       commit(played);
-    }, 650);
-    return () => clearTimeout(id);
+    }, botThinkTime(elo));
+    return () => {
+      clearTimeout(id);
+      setThinking(false);
+    };
   }, [fen, gameOver, commit, elo]);
 
 
@@ -141,6 +155,8 @@ export function useChessGame(initialSeconds = 300, initialElo = 1500) {
     reset,
     elo,
     setElo,
+    thinking,
+
 
     whiteClock,
     blackClock,

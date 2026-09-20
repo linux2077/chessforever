@@ -43,13 +43,18 @@ const TIME_CONTROLS: { label: string; detail: string; seconds: number }[] = [
 ];
 
 const ELO_TITLES: Record<number, string> = {
+  600: "Novice",
   800: "Débutant",
-  1000: "Novice",
+  1000: "Amateur",
   1200: "Club",
-  1500: "Confirmé",
+  1400: "Club +",
+  1600: "Confirmé",
   1800: "Expert",
-  2100: "Maître",
+  2000: "Candidat",
+  2200: "Maître",
   2400: "Grand maître",
+  2600: "Super GM",
+  2800: "Élite",
 };
 
 const CHESS_SCREEN_PICKS = [
