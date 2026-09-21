@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
@@ -123,6 +123,15 @@ function PlayPage() {
         subtitle={`Elo ${game.elo} · ${TIME_CONTROLS[control]?.detail ?? "10+0"}`}
       />
 
+
+      <div className="flex justify-center px-4 pb-3">
+        <Link
+          to="/online"
+          className="w-full rounded-2xl bg-brick px-4 py-3 text-center font-display text-[15px] font-bold text-paper shadow-sm"
+        >
+          Direct réel · humain vs humain
+        </Link>
+      </div>
 
       <div className="px-4">
         <PlayerCard
