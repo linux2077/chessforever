@@ -1,7 +1,5 @@
 # Chess Masters Hub
 
-crée moi une application android comme chess.com
-
 This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://android-chess-hero.lovable.app
