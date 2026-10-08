@@ -24,12 +24,14 @@ export const ELO_LEVELS = [
 
 /** Temps de réflexion (ms) du bot : plus il est fort, plus il "pense" longtemps. */
 export function botThinkTime(elo: number): number {
-  if (elo <= 800) return 350;
-  if (elo <= 1200) return 700;
-  if (elo <= 1600) return 1200;
-  if (elo <= 2000) return 1900;
-  if (elo <= 2400) return 2800;
-  return 3800;
+  const jitter = 0.75 + Math.random() * 0.5;
+  let base = 6500;
+  if (elo <= 800) base = 900;
+  else if (elo <= 1200) base = 1600;
+  else if (elo <= 1600) base = 2500;
+  else if (elo <= 2000) base = 3500;
+  else if (elo <= 2400) base = 4800;
+  return Math.round(base * jitter);
 }
 
 function searchDepth(elo: number): number {

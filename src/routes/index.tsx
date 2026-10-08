@@ -99,7 +99,7 @@ const CHESS_SCREEN_PICKS = [
 function PlayPage() {
   const [control, setControl] = useState(5);
   const game = useChessGame(600, 1500);
-  const { rating, games, ready, applyResult } = usePlayerRating();
+  const { rating, games, ready, applyResult, peak, record, provisional, expectedVs } = usePlayerRating();
   const [previousElo, setPreviousElo] = useState(rating);
   const scoredRef = useRef<string | null>(null);
 
@@ -248,6 +248,10 @@ function PlayPage() {
             generalElo={rating}
             previousElo={previousElo}
             games={games}
+            peak={peak}
+            record={record}
+            provisional={provisional}
+            expected={expectedVs(game.elo)}
           />
         </div>
       )}
