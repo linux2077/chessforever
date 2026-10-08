@@ -46,10 +46,10 @@ export function CoachPanel({
   generalElo,
   previousElo,
   games,
-  peak,
-  record,
-  provisional,
-  expected,
+  peak = generalElo,
+  record = { wins: 0, draws: 0, losses: 0 },
+  provisional = false,
+  expected = 0.5,
 }: Props) {
   const [report, setReport] = useState<CoachReport | null>(null);
   const [loading, setLoading] = useState(false);

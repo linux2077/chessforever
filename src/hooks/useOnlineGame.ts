@@ -43,6 +43,7 @@ export function useOnlineGame() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const gameRef = useRef(new Chess());
+  const [, setVersion] = useState(0);
 
   useEffect(() => setToken(localToken()), []);
 
@@ -51,12 +52,19 @@ export function useOnlineGame() {
     if (!row) return;
     const next = new Chess();
     try {
-      next.load(row.fen);
+      // PGN keeps the full move history; fall back to the position only.
+      if (row.pgn) next.loadPgn(row.pgn);
+      if (next.fen() !== row.fen) next.load(row.fen);
     } catch {
-      /* ignore malformed position */
+      try {
+        next.load(row.fen);
+      } catch {
+        /* ignore malformed position */
+      }
     }
     gameRef.current = next;
     setSelected(null);
+    setVersion((v) => v + 1);
   }, [row?.fen, row?.id]);
 
   // Realtime sync on the current room.
@@ -70,7 +78,20 @@ export function useOnlineGame() {
         (payload) => setRow(payload.new as OnlineRow),
       )
       .subscribe();
+    // Fallback polling so moves always sync even if realtime drops.
+    const id = row.id;
+    const poll = setInterval(async () => {
+      const { data } = await supabase.from("online_games").select("*").eq("id", id).maybeSingle();
+      if (data) {
+        setRow((prev) =>
+          prev && prev.fen === data.fen && prev.status === data.status && prev.black_token === data.black_token
+            ? prev
+            : (data as OnlineRow),
+        );
+      }
+    }, 1500);
     return () => {
+      clearInterval(poll);
       void supabase.removeChannel(channel);
     };
   }, [row?.id]);
@@ -201,7 +222,10 @@ export function useOnlineGame() {
           void supabase
             .from("online_games")
             .update({ fen, pgn, last_from: played.from, last_to: played.to })
-            .eq("id", row.id);
+            .eq("id", row.id)
+            .then(({ error: e }) => {
+              if (e) setError("Coup non synchronisé. Rafraîchis.");
+            });
           return;
         }
       }
