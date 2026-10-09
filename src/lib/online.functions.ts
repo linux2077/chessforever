@@ -16,14 +16,15 @@ export type PublicGame = {
   color: "w" | "b" | null;
 };
 
-type Row = PublicGame & { white_token: string | null; black_token: string | null };
+type Row = Omit<PublicGame, "color"> & { white_token: string | null; black_token: string | null };
 
 const token = z.string().uuid();
 
 function toPublic(row: Row, me: string): PublicGame {
   const { white_token, black_token, ...rest } = row;
   const color = white_token === me ? "w" : black_token === me ? "b" : null;
-  return { ...rest, color } as PublicGame;
+  const { created_at: _c, updated_at: _u, ...pub } = rest as typeof rest & { created_at?: string; updated_at?: string };
+  return { ...pub, color };
 }
 
 async function admin() {
