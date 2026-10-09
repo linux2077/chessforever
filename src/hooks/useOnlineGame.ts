@@ -1,39 +1,26 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import {
+  createOnlineGame,
+  getOnlineGame,
+  joinOnlineGame,
+  playOnlineMove,
+  type PublicGame,
+} from "@/lib/online.functions";
 import { Chess, capturedGlyphs, pairMoves, type Move, type Square } from "@/lib/chess-engine";
 
-export type OnlineRow = {
-  id: string;
-  code: string;
-  fen: string;
-  pgn: string;
-  last_from: string | null;
-  last_to: string | null;
-  white_token: string | null;
-  black_token: string | null;
-  status: string;
-  base_seconds: number;
-  white_clock: number;
-  black_clock: number;
-};
+export type OnlineRow = PublicGame;
 
 const TOKEN_KEY = "chessbar-online-token";
 
+// One player identity per browser tab, so two tabs can face each other.
 function localToken(): string {
   if (typeof window === "undefined") return "";
-  let token = window.localStorage.getItem(TOKEN_KEY);
+  let token = window.sessionStorage.getItem(TOKEN_KEY);
   if (!token) {
     token = crypto.randomUUID();
-    window.localStorage.setItem(TOKEN_KEY, token);
+    window.sessionStorage.setItem(TOKEN_KEY, token);
   }
   return token;
-}
-
-function makeCode(): string {
-  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  return Array.from({ length: 5 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join(
-    "",
-  );
 }
 
 export function useOnlineGame() {
@@ -67,42 +54,25 @@ export function useOnlineGame() {
     setVersion((v) => v + 1);
   }, [row?.fen, row?.id]);
 
-  // Realtime sync on the current room.
+  // Sync with the opponent by polling the server.
   useEffect(() => {
-    if (!row?.id) return;
-    const channel = supabase
-      .channel(`online-game-${row.id}`)
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "online_games", filter: `id=eq.${row.id}` },
-        (payload) => setRow(payload.new as OnlineRow),
-      )
-      .subscribe();
-    // Fallback polling so moves always sync even if realtime drops.
+    if (!row?.id || !token) return;
     const id = row.id;
     const poll = setInterval(async () => {
-      const { data } = await supabase.from("online_games").select("*").eq("id", id).maybeSingle();
-      if (data) {
-        setRow((prev) =>
-          prev && prev.fen === data.fen && prev.status === data.status && prev.black_token === data.black_token
-            ? prev
-            : (data as OnlineRow),
-        );
+      try {
+        const { game } = await getOnlineGame({ data: { token, id } });
+        if (game)
+          setRow((prev) =>
+            prev && prev.fen === game.fen && prev.status === game.status ? prev : game,
+          );
+      } catch {
+        /* network hiccup, retry next tick */
       }
-    }, 1500);
-    return () => {
-      clearInterval(poll);
-      void supabase.removeChannel(channel);
-    };
-  }, [row?.id]);
+    }, 1200);
+    return () => clearInterval(poll);
+  }, [row?.id, token]);
 
-  const color: "w" | "b" | null = !row
-    ? null
-    : row.white_token === token
-      ? "w"
-      : row.black_token === token
-        ? "b"
-        : null;
+  const color = row?.color ?? null;
 
   const game = gameRef.current;
   const turn = game.turn();
@@ -119,24 +89,14 @@ export function useOnlineGame() {
     async (seconds: number) => {
       setBusy(true);
       setError(null);
-      const { data, error: err } = await supabase
-        .from("online_games")
-        .insert({
-          code: makeCode(),
-          white_token: token,
-          base_seconds: seconds,
-          white_clock: seconds,
-          black_clock: seconds,
-          status: "waiting",
-        })
-        .select()
-        .single();
-      setBusy(false);
-      if (err || !data) {
+      try {
+        const res = await createOnlineGame({ data: { token, seconds } });
+        if (res.game) setRow(res.game);
+        else setError(res.error);
+      } catch {
         setError("Impossible de créer la partie. Réessaie.");
-        return;
       }
-      setRow(data as OnlineRow);
+      setBusy(false);
     },
     [token],
   );
@@ -150,52 +110,23 @@ export function useOnlineGame() {
       }
       setBusy(true);
       setError(null);
-      const { data: found } = await supabase
-        .from("online_games")
-        .select("*")
-        .eq("code", code)
-        .maybeSingle();
-
-      if (!found) {
-        setBusy(false);
-        setError("Aucune partie avec ce code.");
-        return;
+      try {
+        const res = await joinOnlineGame({ data: { token, code } });
+        if (res.game) setRow(res.game);
+        else setError(res.error);
+      } catch {
+        setError("Connexion impossible. Réessaie.");
       }
-
-      const existing = found as OnlineRow;
-      if (existing.white_token === token || existing.black_token === token) {
-        setBusy(false);
-        setRow(existing);
-        return;
-      }
-      if (existing.black_token) {
-        setBusy(false);
-        setError("Cette partie est déjà complète.");
-        return;
-      }
-
-      const { data, error: err } = await supabase
-        .from("online_games")
-        .update({ black_token: token, status: "playing" })
-        .eq("id", existing.id)
-        .is("black_token", null)
-        .select()
-        .single();
       setBusy(false);
-      if (err || !data) {
-        setError("La place vient d'être prise.");
-        return;
-      }
-      setRow(data as OnlineRow);
     },
     [token],
   );
 
   const refresh = useCallback(async () => {
     if (!row?.id) return;
-    const { data } = await supabase.from("online_games").select("*").eq("id", row.id).maybeSingle();
-    if (data) setRow(data as OnlineRow);
-  }, [row?.id]);
+    const { game } = await getOnlineGame({ data: { token, id: row.id } });
+    if (game) setRow(game);
+  }, [row?.id, token]);
 
   const leave = useCallback(() => {
     setRow(null);
@@ -219,13 +150,12 @@ export function useOnlineGame() {
           const pgn = current.pgn();
           setSelected(null);
           setRow({ ...row, fen, pgn, last_from: played.from, last_to: played.to });
-          void supabase
-            .from("online_games")
-            .update({ fen, pgn, last_from: played.from, last_to: played.to })
-            .eq("id", row.id)
-            .then(({ error: e }) => {
-              if (e) setError("Coup non synchronisé. Rafraîchis.");
-            });
+          void playOnlineMove({ data: { token, id: row.id, from: played.from, to: played.to } })
+            .then((res) => {
+              if (res.game) setRow(res.game);
+              if (res.error) setError(res.error);
+            })
+            .catch(() => setError("Coup non synchronisé. Rafraîchis."));
           return;
         }
       }
@@ -233,7 +163,7 @@ export function useOnlineGame() {
       const piece = current.get(square);
       setSelected(piece && piece.color === current.turn() ? square : null);
     },
-    [row, myTurn, selected],
+    [row, myTurn, selected, token],
   );
 
   const history = game.history({ verbose: true }) as Move[];
