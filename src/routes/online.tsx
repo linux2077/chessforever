@@ -53,6 +53,9 @@ function OnlinePage() {
 
       {!online.row && (
         <div className="space-y-4 px-4">
+          <Link to="/parties" className="block rounded-2xl bg-card px-4 py-3 text-center font-display text-[14px] font-bold ring-1 ring-white/10">
+            Voir toutes les parties en ligne
+          </Link>
           <section className="rounded-2xl bg-card p-4 ring-1 ring-white/10">
             <h2 className="font-display text-[17px] leading-tight font-extrabold">Créer un salon</h2>
             <p className="mt-1 text-[12px] leading-relaxed text-bark">
