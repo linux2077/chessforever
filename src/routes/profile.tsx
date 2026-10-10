@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppHeader, AppShell } from "@/components/AppShell";
+import { AccountCard } from "@/components/AccountCard";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -33,6 +34,10 @@ function ProfilePage() {
   return (
     <AppShell>
       <AppHeader title="Milan R." subtitle="Member since 2023" />
+
+      <div className="mb-3 px-4">
+        <AccountCard />
+      </div>
 
       <div className="px-4">
         <div className="rounded-2xl bg-card p-3 ring-1 ring-white/10">
