@@ -1,0 +1,10 @@
+# Netlify build for CHESSBAR (TanStack Start + Nitro).
+# Nitro reads NITRO_PRESET and emits Netlify Functions + static assets.
+[build]
+  command = "bun install && bun run build"
+  publish = "dist"
+
+[build.environment]
+  NITRO_PRESET = "netlify"
+  NODE_VERSION = "22"
+  BUN_VERSION = "1.2.19"
