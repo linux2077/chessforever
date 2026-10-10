@@ -14,8 +14,10 @@ import { Route as ArenaRouteImport } from './routes/arena'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as LocalRouteImport } from './routes/local'
 import { Route as OnlineRouteImport } from './routes/online'
+import { Route as PartiesRouteImport } from './routes/parties'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PuzzlesRouteImport } from './routes/puzzles'
+import { Route as ApiPublicHooksDebugOnlineRouteImport } from './routes/api/public/hooks/debug-online'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -42,6 +44,11 @@ const OnlineRoute = OnlineRouteImport.update({
   path: '/online',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartiesRoute = PartiesRouteImport.update({
+  id: '/parties',
+  path: '/parties',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -52,6 +59,12 @@ const PuzzlesRoute = PuzzlesRouteImport.update({
   path: '/puzzles',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksDebugOnlineRoute =
+  ApiPublicHooksDebugOnlineRouteImport.update({
+    id: '/api/public/hooks/debug-online',
+    path: '/api/public/hooks/debug-online',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,8 +72,10 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/local': typeof LocalRoute
   '/online': typeof OnlineRoute
+  '/parties': typeof PartiesRoute
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
+  '/api/public/hooks/debug-online': typeof ApiPublicHooksDebugOnlineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -68,8 +83,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/local': typeof LocalRoute
   '/online': typeof OnlineRoute
+  '/parties': typeof PartiesRoute
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
+  '/api/public/hooks/debug-online': typeof ApiPublicHooksDebugOnlineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -78,15 +95,34 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/local': typeof LocalRoute
   '/online': typeof OnlineRoute
+  '/parties': typeof PartiesRoute
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
+  '/api/public/hooks/debug-online': typeof ApiPublicHooksDebugOnlineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/arena' | '/auth' | '/local' | '/online' | '/profile' | '/puzzles'
+    | '/'
+    | '/arena'
+    | '/auth'
+    | '/local'
+    | '/online'
+    | '/parties'
+    | '/profile'
+    | '/puzzles'
+    | '/api/public/hooks/debug-online'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/arena' | '/auth' | '/local' | '/online' | '/profile' | '/puzzles'
+  to:
+    | '/'
+    | '/arena'
+    | '/auth'
+    | '/local'
+    | '/online'
+    | '/parties'
+    | '/profile'
+    | '/puzzles'
+    | '/api/public/hooks/debug-online'
   id:
     | '__root__'
     | '/'
@@ -94,8 +130,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/local'
     | '/online'
+    | '/parties'
     | '/profile'
     | '/puzzles'
+    | '/api/public/hooks/debug-online'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,8 +142,10 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   LocalRoute: typeof LocalRoute
   OnlineRoute: typeof OnlineRoute
+  PartiesRoute: typeof PartiesRoute
   ProfileRoute: typeof ProfileRoute
   PuzzlesRoute: typeof PuzzlesRoute
+  ApiPublicHooksDebugOnlineRoute: typeof ApiPublicHooksDebugOnlineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnlineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/parties': {
+      id: '/parties'
+      path: '/parties'
+      fullPath: '/parties'
+      preLoaderRoute: typeof PartiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -159,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PuzzlesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/debug-online': {
+      id: '/api/public/hooks/debug-online'
+      path: '/api/public/hooks/debug-online'
+      fullPath: '/api/public/hooks/debug-online'
+      preLoaderRoute: typeof ApiPublicHooksDebugOnlineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -168,8 +222,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   LocalRoute: LocalRoute,
   OnlineRoute: OnlineRoute,
+  PartiesRoute: PartiesRoute,
   ProfileRoute: ProfileRoute,
   PuzzlesRoute: PuzzlesRoute,
+  ApiPublicHooksDebugOnlineRoute: ApiPublicHooksDebugOnlineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
