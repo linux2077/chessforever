@@ -8,7 +8,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   // On Netlify builds (NETLIFY=true is set by Netlify), emit Netlify Functions output.
-  ...(process.env.NETLIFY ? { nitro: { preset: "netlify" } } : {}),
+  ...(process.env["NETLIFY"] ? { nitro: { preset: "netlify" } } : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
