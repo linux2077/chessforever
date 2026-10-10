@@ -5,6 +5,6 @@
   publish = "dist"
 
 [build.environment]
-  NITRO_PRESET = "netlify"
+  NETLIFY = "true"
   NODE_VERSION = "22"
   BUN_VERSION = "1.2.19"
