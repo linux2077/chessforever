@@ -15,7 +15,7 @@ export const Route = createFileRoute("/api/public/hooks/debug-online")({
 
         const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
         const { Chess } = await import("chess.js");
-        const report: Record<string, unknown> = { at: new Date().toISOString() };
+        const report: { at: string; ok?: boolean; error?: string; playing?: number | null; waiting?: number | null; ms?: number } = { at: new Date().toISOString() };
         const t0 = Date.now();
         const code = `T${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
         const { data: g, error } = await db
