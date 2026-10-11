@@ -11,13 +11,24 @@ bun run dev
 
 ## GitHub
 
-Connect the project to GitHub from the Lovable editor (Git sync). Every change is pushed to the repository automatically.
+Connect the project to GitHub from the Lovable editor (Git sync). Every change is pushed to the repository automatically. To work locally:
+
+```bash
+git clone <your-repo-url>
+bun install
+bun run dev
+```
+
+Push to the default branch and the change syncs back to Lovable automatically.
 
 ## Netlify
 
 1. Netlify → Add new site → Import from GitHub → pick this repository.
-2. Build settings are read from `netlify.toml` (preset `netlify`, output `dist`).
+2. Build settings are read from `netlify.toml` (`bun install && bun run build`, output `dist`, Nitro preset `netlify` via the `NETLIFY` env var).
 3. Add every variable listed in `.env.example` under Site configuration → Environment variables.
 4. Deploy.
 
-Note: online rooms need `SUPABASE_SERVICE_ROLE_KEY` and the coach needs `LOVABLE_API_KEY`; both are server-only.
+Notes:
+- Online rooms need `SUPABASE_SERVICE_ROLE_KEY` and the AI coach needs `LOVABLE_API_KEY`; both are server-only and are not available from Lovable Cloud, so those two features stay inactive on Netlify.
+- Bots, local 2-player and accounts work everywhere.
+- Publishing with Lovable keeps every feature active.
