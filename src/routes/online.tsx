@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppHeader, AppShell } from "@/components/AppShell";
 import { ChessBoard } from "@/components/chess/ChessBoard";
