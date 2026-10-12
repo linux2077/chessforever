@@ -2,6 +2,8 @@
 
 Mobile-first chess app: bots with Elo levels, local 2-player, live online rooms, AI coach, optional accounts.
 
+**Licensed under the [MIT License](./LICENSE) — free to use, modify and share.** Contributions are welcome (see [CONTRIBUTING.md](./CONTRIBUTING.md)).
+
 ## Run locally
 
 ```bash
@@ -32,3 +34,7 @@ Notes:
 - Online rooms need `SUPABASE_SERVICE_ROLE_KEY` and the AI coach needs `LOVABLE_API_KEY`; both are server-only and are not available from Lovable Cloud, so those two features stay inactive on Netlify.
 - Bots, local 2-player and accounts work everywhere.
 - Publishing with Lovable keeps every feature active.
+
+## License
+
+This project is open source under the [MIT License](./LICENSE).
