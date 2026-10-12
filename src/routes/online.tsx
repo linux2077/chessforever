@@ -104,7 +104,7 @@ function OnlinePage() {
               value={codeInput}
               onChange={(e) => setCodeInput(e.target.value.toUpperCase())}
               placeholder="EX. K4TR9"
-              maxLength={5}
+              maxLength={8}
               className="mt-3 w-full rounded-2xl bg-cream/50 px-3 py-3 text-center font-mono text-[18px] tracking-[0.3em] text-foreground ring-1 ring-white/10 outline-none placeholder:text-bark/50"
             />
             <button
