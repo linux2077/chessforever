@@ -2,7 +2,7 @@
 
 Mobile-first chess app: bots with Elo levels, local 2-player, live online rooms, AI coach, optional accounts.
 
-**Licensed under the [MIT License](./LICENSE) — free to use, modify and share.** Contributions are welcome (see [CONTRIBUTING.md](./CONTRIBUTING.md)).
+**Licensed under the [GNU GPL v3](./LICENSE) — free to use, study, modify and share, as long as derivatives stay open source.** Contributions are welcome (see [CONTRIBUTING.md](./CONTRIBUTING.md)).
 
 ## Run locally
 

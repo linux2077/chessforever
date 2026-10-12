@@ -27,4 +27,4 @@ Open an issue with what you did, what you expected, and what happened. Screensho
 
 ## License
 
-By contributing, you agree that your contributions are licensed under the MIT License (see [LICENSE](./LICENSE)).
+By contributing, you agree that your contributions are licensed under the GNU General Public License v3.0 only (see [LICENSE](./LICENSE)). Since CHESSBAR is copyleft, any released version that includes your contribution must also be distributed under the GPL v3.
