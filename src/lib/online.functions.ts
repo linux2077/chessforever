@@ -33,7 +33,9 @@ async function admin() {
 
 function makeCode(): string {
   const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  return Array.from({ length: 5 }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
+  const bytes = new Uint32Array(8);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => alphabet[b % alphabet.length]).join("");
 }
 
 export const createOnlineGame = createServerFn({ method: "POST" })
