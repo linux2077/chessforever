@@ -37,4 +37,10 @@ Notes:
 
 ## License
 
-This project is open source under the [MIT License](./LICENSE).
+CHESSBAR is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License (see [LICENSE](./LICENSE)).
+
+It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the LICENSE file for more details.
+
+If you distribute CHESSBAR or a modified version of it, you must make the corresponding source available under the same license.
+
+Copyright (C) 2026 CHESSBAR contributors.
