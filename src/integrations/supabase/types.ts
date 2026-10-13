@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      maintenance_reports: {
+        Row: {
+          closed_stuck: number
+          created_at: string
+          errors: Json
+          id: string
+          invalid_fixed: number
+          live_ok: boolean
+          removed_waiting: number
+        }
+        Insert: {
+          closed_stuck?: number
+          created_at?: string
+          errors?: Json
+          id?: string
+          invalid_fixed?: number
+          live_ok: boolean
+          removed_waiting?: number
+        }
+        Update: {
+          closed_stuck?: number
+          created_at?: string
+          errors?: Json
+          id?: string
+          invalid_fixed?: number
+          live_ok?: boolean
+          removed_waiting?: number
+        }
+        Relationships: []
+      }
       online_games: {
         Row: {
           base_seconds: number
