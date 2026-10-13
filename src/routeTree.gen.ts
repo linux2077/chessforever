@@ -18,6 +18,7 @@ import { Route as PartiesRouteImport } from './routes/parties'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PuzzlesRouteImport } from './routes/puzzles'
 import { Route as ApiPublicHooksDebugOnlineRouteImport } from './routes/api/public/hooks/debug-online'
+import { Route as ApiPublicHooksWeeklyMaintenanceRouteImport } from './routes/api/public/hooks/weekly-maintenance'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -65,6 +66,12 @@ const ApiPublicHooksDebugOnlineRoute =
     path: '/api/public/hooks/debug-online',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksWeeklyMaintenanceRoute =
+  ApiPublicHooksWeeklyMaintenanceRouteImport.update({
+    id: '/api/public/hooks/weekly-maintenance',
+    path: '/api/public/hooks/weekly-maintenance',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -76,6 +83,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
   '/api/public/hooks/debug-online': typeof ApiPublicHooksDebugOnlineRoute
+  '/api/public/hooks/weekly-maintenance': typeof ApiPublicHooksWeeklyMaintenanceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -87,6 +95,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
   '/api/public/hooks/debug-online': typeof ApiPublicHooksDebugOnlineRoute
+  '/api/public/hooks/weekly-maintenance': typeof ApiPublicHooksWeeklyMaintenanceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -99,6 +108,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/puzzles': typeof PuzzlesRoute
   '/api/public/hooks/debug-online': typeof ApiPublicHooksDebugOnlineRoute
+  '/api/public/hooks/weekly-maintenance': typeof ApiPublicHooksWeeklyMaintenanceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -112,6 +122,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/puzzles'
     | '/api/public/hooks/debug-online'
+    | '/api/public/hooks/weekly-maintenance'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -123,6 +134,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/puzzles'
     | '/api/public/hooks/debug-online'
+    | '/api/public/hooks/weekly-maintenance'
   id:
     | '__root__'
     | '/'
@@ -134,6 +146,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/puzzles'
     | '/api/public/hooks/debug-online'
+    | '/api/public/hooks/weekly-maintenance'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -146,6 +159,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   PuzzlesRoute: typeof PuzzlesRoute
   ApiPublicHooksDebugOnlineRoute: typeof ApiPublicHooksDebugOnlineRoute
+  ApiPublicHooksWeeklyMaintenanceRoute: typeof ApiPublicHooksWeeklyMaintenanceRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -213,6 +227,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksDebugOnlineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/weekly-maintenance': {
+      id: '/api/public/hooks/weekly-maintenance'
+      path: '/api/public/hooks/weekly-maintenance'
+      fullPath: '/api/public/hooks/weekly-maintenance'
+      preLoaderRoute: typeof ApiPublicHooksWeeklyMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -226,6 +247,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   PuzzlesRoute: PuzzlesRoute,
   ApiPublicHooksDebugOnlineRoute: ApiPublicHooksDebugOnlineRoute,
+  ApiPublicHooksWeeklyMaintenanceRoute: ApiPublicHooksWeeklyMaintenanceRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
